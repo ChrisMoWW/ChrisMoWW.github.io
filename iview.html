@@ -26,6 +26,7 @@ div.footer {
 <div>
 	<button onclick="exportStoreJson()">Export Coordinates</button>
 	<a id="downloadAnchorElem" style="display:none"></a>
+	<input type="file" id="inputCoordinate"/>
 </div>
 
 <div id="imageDiv" style="margin:12px;margin-top: 50px;position: relative;">
@@ -51,10 +52,14 @@ cvs.addEventListener('click', copyMousePos, false);
 
 cvsTextLayer.addEventListener('mousemove', mousePos, false);
 cvsTextLayer.addEventListener('click', copyMousePos, false);
+// cvsTextLayer.addEventListener('dblclick', deletePinpoint, false);
+
 
 window.onload = function() {
 	var inputImage = document.getElementById('inputImage');
 	inputImage.addEventListener('change', handleImageFiles, false);
+	var inputCoordinate = document.getElementById('inputCoordinate');
+	inputCoordinate.addEventListener('change', importStoreJson, false);
 }
 
 </script>

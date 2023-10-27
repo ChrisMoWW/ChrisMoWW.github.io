@@ -11,6 +11,19 @@ function copyMousePos(evt) {
 	//   console.log('ko')
 	// });
 
+	// delete pinpoint when click on it
+	const isExists = positions.find(item => inRange(item.x , item.y, x - 5 , y - 5, x + 5, y + 5));
+	if (isExists) {
+		for (var i = 0; i < positions.length; i++) {
+			const item = positions[i];
+			if (inRange(item.x, item.y, x - 5, y - 5, x + 5, y + 5)) {
+				positions.splice(i, 1);
+			}
+		}
+		redrawPoints();
+		return false;
+	}
+
 	// let fieldName = window.prompt("input field name :");
 
 	// Draw a circle at the clicked position
@@ -53,16 +66,7 @@ function handleImageFiles(e) {
 			store = JSON.parse(store);
 			const pos = store.find(item => item.fileName === e.target.files[0].name);
 			positions = pos ? pos.positions : [];
-			for (var i = 0; i < positions.length; i++) {
-				var x = positions[i].x;
-				var y = positions[i].y;
-				ctxTextLayer.beginPath();
-			    ctxTextLayer.arc(x, y, 5, 0, 2 * Math.PI);
-			    ctxTextLayer.fillStyle = 'red';
-			    ctxTextLayer.fill();
-			    ctxTextLayer.font = '15px Arial';
-			    ctxTextLayer.fillText(`(${x}, ${y})`, x + 10, y);
-			}
+			redrawPoints();
 		} else {
 			store = [];
 			pos = {fileName: e.target.files[0].name, positions};
@@ -79,4 +83,33 @@ function exportStoreJson() {
 	dlAnchorElem.setAttribute("href",     dataStr     );
 	dlAnchorElem.setAttribute("download", "store.json");
 	dlAnchorElem.click();
+}
+
+function importStoreJson(e) {
+	const reader = new FileReader();
+	reader.onload = function(e) {
+		const text = reader.result;
+		store = JSON.parse(text);
+		localStorage.setItem('store', JSON.stringify(store));
+	}
+	reader.readAsText(e.target.files[0]);
+}
+
+
+function inRange(x, y, x1, y1, x2, y2) {
+	return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+}
+
+function redrawPoints() {
+	ctxTextLayer.clearRect(0, 0, cvsTextLayer.width, cvsTextLayer.height);
+	for (var i = 0; i < positions.length; i++) {
+		var x = positions[i].x;
+		var y = positions[i].y;
+		ctxTextLayer.beginPath();
+		ctxTextLayer.arc(x, y, 5, 0, 2 * Math.PI);
+		ctxTextLayer.fillStyle = 'red';
+		ctxTextLayer.fill();
+		ctxTextLayer.font = '15px Arial';
+		ctxTextLayer.fillText(`(${x}, ${y})`, x + 10, y);
+	}
 }
