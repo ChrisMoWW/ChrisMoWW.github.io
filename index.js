@@ -120,7 +120,7 @@ function redrawPoints() {
 		ctxTextLayer.arc(x, y, 5, 0, 2 * Math.PI);
 		ctxTextLayer.fillStyle = 'red';
 		ctxTextLayer.fill();
-		ctxTextLayer.font = '15px Arial';
+		ctxTextLayer.font = '22px Arial';
 		const textWidth = ctxTextLayer.measureText('Hello World').width;
 		ctxTextLayer.fillStyle = 'white';
 		ctxTextLayer.fillRect(x + 10, y - 15, textWidth + 10, 20);
