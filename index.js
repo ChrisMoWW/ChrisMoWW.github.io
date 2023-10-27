@@ -70,7 +70,13 @@ function handleImageFiles(e) {
 			store = localStorage.getItem('store');
 			store = JSON.parse(store);
 			const pos = store.find(item => item.fileName === e.target.files[0].name);
-			positions = pos ? pos.positions : [];
+			if (!pos) {
+				positions = [];
+				pos = {fileName: e.target.files[0].name, positions};
+				store.push(pos);
+			} else {
+				positions = pos.positions;
+			}
 			redrawPoints();
 		} else {
 			store = [];
