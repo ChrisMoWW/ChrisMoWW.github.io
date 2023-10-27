@@ -121,6 +121,10 @@ function redrawPoints() {
 		ctxTextLayer.fillStyle = 'red';
 		ctxTextLayer.fill();
 		ctxTextLayer.font = '15px Arial';
+		const textWidth = ctxTextLayer.measureText('Hello World').width;
+		ctxTextLayer.fillStyle = 'white';
+		ctxTextLayer.fillRect(x + 10, y - 15, textWidth + 10, 20);
+		ctxTextLayer.fillStyle = 'red';
 		ctxTextLayer.fillText(`(${x}, ${y})`, x + 10, y);
 	}
 }
