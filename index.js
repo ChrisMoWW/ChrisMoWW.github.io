@@ -69,7 +69,7 @@ function handleImageFiles(e) {
 		if (localStorage.getItem('store')) {
 			store = localStorage.getItem('store');
 			store = JSON.parse(store);
-			const pos = store.find(item => item.fileName === e.target.files[0].name);
+			let pos = store.find(item => item.fileName === e.target.files[0].name);
 			if (!pos) {
 				positions = [];
 				pos = {fileName: e.target.files[0].name, positions};
