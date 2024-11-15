@@ -25,8 +25,9 @@ div.footer {
 <p>Open image: <input type="file" id="inputImage"/></p>
 <div>
 	<button onclick="exportStoreJson()">Export Coordinates</button>
+	<label for="uploadJson">Import Coordinates</label>
+	<input type="file" id="uploadJson" value="Import Coordinates"/>
 	<a id="downloadAnchorElem" style="display:none"></a>
-	<input type="file" id="inputCoordinate"/>
 </div>
 
 <div id="imageDiv" style="margin:12px;margin-top: 50px;position: relative;">
@@ -59,7 +60,8 @@ window.onload = function() {
 	var inputImage = document.getElementById('inputImage');
 	inputImage.addEventListener('change', handleImageFiles, false);
 	var inputCoordinate = document.getElementById('inputCoordinate');
-	inputCoordinate.addEventListener('change', importStoreJson, false);
+	var uploadJson = document.getElementById('uploadJson');
+	uploadJson.addEventListener('change', importStoreJson, false);
 }
 
 </script>

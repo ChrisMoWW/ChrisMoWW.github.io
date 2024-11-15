@@ -97,13 +97,19 @@ function exportStoreJson() {
 }
 
 function importStoreJson(e) {
-	const reader = new FileReader();
-	reader.onload = function(e) {
-		const text = reader.result;
-		store = JSON.parse(text);
-		localStorage.setItem('store', JSON.stringify(store));
+	const fileInput = document.getElementById('uploadJson');
+	const file = fileInput.files[0];
+
+	if (file) {
+		const reader = new FileReader();
+		reader.onload = function(event) {
+			const jsonContent = event.target.result;
+			localStorage.setItem('store', jsonContent);
+		};
+		reader.readAsText(file);
+	} else {
+		alert('Please select a file first');
 	}
-	reader.readAsText(e.target.files[0]);
 }
 
 
